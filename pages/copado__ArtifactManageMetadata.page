@@ -65,7 +65,7 @@
                 var msgcJob = '{!JSENCODE(slockerMessage)}';
             </script>
         </apex:outputPanel>
-        <c:CopadoHelp sectionText="{!$Label.copado__artifact_help}" sectionTitle="{!$Label.copado__help}" sectionLink="https://docs.copa.do/" sectionLinkTitle="{!$Label.copado__more_information_here}" sectionOpen="false" />
+        <c:CopadoHelp sectionText="{!$Label.copado__artifact_help}" sectionTitle="{!$Label.copado__help}" sectionLink="https://docs.copado.com/" sectionLinkTitle="{!$Label.copado__more_information_here}" sectionOpen="false" />
         <apex:pageBlock id="pb" rendered="{!AND(showOptions,!showError)}" title="{!copado__Artifact__c.Name}">
             <apex:pageBlockButtons id="pbb_Save" location="top">
                 <!--<apex:commandButton id="btnFindDependency" value="Find Dependencies" onClick="lockScreen();findDependencies(JSON.stringify(metadataGrid2.dependencyRetrieveArray));" reRender="xxx" />&nbsp;-->

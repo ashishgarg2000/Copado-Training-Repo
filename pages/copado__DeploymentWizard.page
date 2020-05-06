@@ -31,14 +31,14 @@
           <apex:sectionHeader title="{!$ObjectType.copado__Deployment__c.LabelPlural}" subtitle="{!$Label.copado__header_create_step}" description="{!$Label.copado__header_desc_create_step}" rendered="{!step_addStep}" />
           <apex:sectionHeader title="{!$ObjectType.copado__Deployment__c.LabelPlural}" subtitle="{!$Label.copado__header_select_dest_orgs}" description="{!$Label.copado__header_desc_select_dest_orgs}" rendered="{!step_selectDestinationOrgs}" />
           <apex:sectionHeader title="{!$ObjectType.copado__Deployment__c.LabelPlural}" subtitle="{!$Label.copado__header_setup_schedule}" description="{!$Label.copado__header_desc_setup_schedule}" rendered="{!AND(step_setupSchedule,NOT(ui2))}" />
-          
+
           <apex:pageMessages id="pageMessages" />
           <apex:outputPanel layout="block" >
-          <c:ComplianceScanResult sId="{!copado__Deployment__c.Id}" apiName="Deployment__c"/>  
-          </apex:outputPanel>  
+          <c:ComplianceScanResult sId="{!copado__Deployment__c.Id}" apiName="Deployment__c"/>
+          </apex:outputPanel>
           <c:JobsManager matchingKeys="{!$CurrentPage.parameters.jobsManagerMatchingKey}" rendered="{! !ISBLANK($CurrentPage.parameters.jobsManagerMatchingKey)}" />
-          
-          <apex:pageBlock id="pb_createDeployment" rendered="{!step_createDeployment}" mode="edit" helpUrl="https://docs.copa.do/deployment-steps/deployment-steps" helpTitle="{!$Label.copado__help_for_this_page}">
+
+          <apex:pageBlock id="pb_createDeployment" rendered="{!step_createDeployment}" mode="edit" helpUrl="https://docs.copado.com/deployment-steps/deployment-steps" helpTitle="{!$Label.copado__help_for_this_page}">
               <apex:pageblockButtons >
                   <apex:commandButton value="{!$Label.copado__close}" styleClass="btn" action="{!cancel}" />
                   <apex:commandButton value="{!$Label.copado__next}" styleClass="btnImportant" action="{!save_deployment}" />
@@ -50,7 +50,7 @@
                   <apex:inputField value="{!copado__Deployment__c.copado__Send_Deployment_Complete_email__c}" />
               </apex:pageBlockSection>
               <apex:pageBlockSection columns="2" title="{!$Label.copado__other_information}" rendered="{!showOtherInformation}">
-                <apex:repeat value="{!$ObjectType.copado__Deployment__c.FieldSets.copado__CustomFields}" var="f"> 
+                <apex:repeat value="{!$ObjectType.copado__Deployment__c.FieldSets.copado__CustomFields}" var="f">
                     <apex:inputField value="{!copado__Deployment__c[f]}" required="{!OR(f.required, f.dbrequired)}"/>
                 </apex:repeat>
               </apex:pageBlockSection>
@@ -61,10 +61,10 @@
               });
               </script>
           </apex:pageBlock>
-          
-          <apex:pageBlock id="pb_addStep" rendered="{!step_addStep}" mode="edit" helpUrl="https://docs.copa.do/" helpTitle="{!$Label.copado__help_for_this_page}">
 
-             
+          <apex:pageBlock id="pb_addStep" rendered="{!step_addStep}" mode="edit" helpUrl="https://docs.copado.com/" helpTitle="{!$Label.copado__help_for_this_page}">
+
+
               <script language="javascript">
                   var rock = rock || {};
                   rock.config = {
@@ -75,16 +75,16 @@
                       describe_url : '{!JSENCODE(describe_url)}'
                   };
                   rock.deploymentId = '{!JSENCODE(deployment.id)}';
-                  rock.org__c = '{!JSENCODE(deployment.copado__From_Org__c)}'; 
+                  rock.org__c = '{!JSENCODE(deployment.copado__From_Org__c)}';
                   rock.selectedNames = [];
-              </script>   
+              </script>
               <script>
               ga('send', 'pageview', {
                 'page': '/wizardStep2',
                 'title': 'Wizard - Add Steps'
               });
               </script>
-              
+
               <apex:pageblockButtons >
                   <apex:commandButton value="{!$Label.copado__back}" action="{!goto_createDeployment}" rendered="{!NOT(step_Step_edit)}" />
                   <apex:commandButton value="{!$Label.copado__close}" styleClass="btn" action="{!cancel}" />
@@ -94,8 +94,8 @@
                   <apex:actionFunction name="goto_addStepJS" action="{!goto_addStep}" />
                   <apex:commandButton value="{!$Label.copado__next}" styleClass="btnImportant" action="{!goto_selectDestinationOrgs}" rendered="{!NOT(step_Step_edit)}" />
               </apex:pageblockButtons>
-              
-              <apex:pageMessage rendered="{!AND(NOT(hasSteps), NOT(step_Step_edit))}" severity="INFO" strength="2" summary="{!$Label.copado__no_steps_in_deployment}" /> 
+
+              <apex:pageMessage rendered="{!AND(NOT(hasSteps), NOT(step_Step_edit))}" severity="INFO" strength="2" summary="{!$Label.copado__no_steps_in_deployment}" />
 
               <apex:pageBlockTable id="stepsTable" value="{!steps}" var="s" rendered="{!AND(hasSteps, NOT(step_Step_edit))}">
                   <apex:column styleClass="col1commands">
@@ -112,7 +112,7 @@
                           <apex:commandLink action="{!moveUp}" reRender="stepsTable,theForm" rendered="{!s.copado__Order__c != 1}">
                               <apex:image url="{!URLFOR($Resource.copado__arrow_up)}"/>
                                <apex:param name="selectedStep" assignTo="{!selectedStep}" value="{!s.id}"/>
-                          </apex:commandLink>  
+                          </apex:commandLink>
                            <apex:commandLink action="{!moveDown}" reRender="stepsTable,theForm" rendered="{!s.copado__Order__c != stepCount}">
                               <apex:image url="{!URLFOR($Resource.copado__arrow_down)}"/>
                                <apex:param name="selectedStep" assignTo="{!selectedStep}" value="{!s.id}"/>
@@ -135,8 +135,8 @@
                   </apex:column>
                   <apex:column value="{!s.copado__Type__c}">
                   </apex:column>
-                  
-              </apex:pageBlockTable>  
+
+              </apex:pageBlockTable>
               <table border="0" width="100%">
                   <tr>
                       <td width="50%" >
@@ -154,8 +154,8 @@
                               </apex:selectList>
                               <apex:outputPanel ></apex:outputPanel>
                               <apex:inputField value="{!step.copado__CheckOnly__c}" id="stepCheckOnly" rendered="{!step_Step_edit && (step.copado__Type__c == 'MetaData' || step.copado__Type__c == 'Delete MetaData')}"/>
-                              
-                              
+
+
                               <apex:actionStatus id="as_stepType">
                                   <apex:facet name="start">
                                       <img class="waitingImage" src="/img/loading.gif" />
@@ -163,27 +163,27 @@
                               </apex:actionStatus>
                               <script language="javascript">
                                   rock.stepId = '{!JSENCODE(selectedStep)}';
-                                 
-                                  rock.stepUI = { 
+
+                                  rock.stepUI = {
                                       name: '{!JSENCODE($Component.pbs_step.stepName)}',
                                       order: '{!JSENCODE($Component.pbs_step.stepOrder)}',
                                       type: '{!JSENCODE($Component.pbs_step.stepType)}',
                                       data: '{!JSENCODE($Component.pbs_step.dataJson)}',
                                       checkOnly : '{!JSENCODE($Component.pbs_step.stepCheckOnly)}'
                                   };
-                              
-                              
-                                  //TODO: move to external file and improve this code 
+
+
+                                  //TODO: move to external file and improve this code
                                   //helper
                                   rock.el = function(id){return document.getElementById(id);};
-                                     
+
                                   rock.goto_stepsList = function(){
                                      rock.stepId = '';
                                      goto_addStepJS();
                                   };
-                                     
+
                                   rock.saveStep = function(){
-                                         
+
                                      var type = $copado(rock.el(rock.stepUI.type)).val();
                                      var name = $copado(rock.el(rock.stepUI.name)).val();
                                      var order = $copado(rock.el(rock.stepUI.order)).val();
@@ -201,18 +201,18 @@
                                      }
                                      if((type === 'Data' || type === 'Bulk Data') &&
                                          (!dw.qb.objectSelected ||
-                                         !dw.qb.queryTested || 
+                                         !dw.qb.queryTested ||
                                          !dw.qb.externalId )
                                          ){
                                           alert('{!$Label.copado__must_build_valid_and_tested_query}');
-                                          return false; 
+                                          return false;
                                      }
-                                     
-                                     if(type === 'Users' && 
+
+                                     if(type === 'Users' &&
                                          !dw.user.isValid()){
-                                         return false; 
+                                         return false;
                                      }
-                                     
+
                                      //upsert step
                                      rock.upsertStep(function(step){
                                          rock.stepId = step.Id;
@@ -227,10 +227,10 @@
                                      });
                                      return false;
                                  };
-                                 
+
                                  //get query from query-builder and make the json object
                                  rock.getDataJson = function(){
-                                     
+
                                      var obj = {
                                          o:dw.qb.objectSelected,
                                          q:dw.qb.query,
@@ -239,29 +239,29 @@
                                      };
                                      return JSON.stringify(obj);//$copado(rock.el(rock.stepUI.data)).val();
                                  };
-                                     
+
                                  rock.upsertStep = function(cb){
-                                     
+
                                      var step = new sforce.SObject(copadoApp.ns+"Step__c");
-                                     
+
                                      //get field values from DOM inputs
                                      step.Name = $copado(rock.el(rock.stepUI.name)).val();
                                      step[copadoApp.ns+'Order__c'] = $copado(rock.el(rock.stepUI.order)).val();
                                      step[copadoApp.ns+'Type__c'] = $copado(rock.el(rock.stepUI.type)).val();
                                      step[copadoApp.ns+'Deployment__c'] = rock.deploymentId;
                                      step[copadoApp.ns+'CheckOnly__c'] = $copado(rock.el(rock.stepUI.checkOnly)).is(':checked') ? true : false;
-                                     
+
                                      step.Id = rock.stepId;
-                                     
+
                                      if(step[copadoApp.ns+'Type__c'] == 'Data' || step[copadoApp.ns+'Type__c'] == 'Bulk Data'){
                                          step[copadoApp.ns+'dataJson__c'] = rock.getDataJson();
                                      }
-                                     
+
                                      console.log('trying to upsert',rock.stepId,step);
-                                     
+
                                      // this will insert or update an step
                                      var result = sforce.connection.upsert("Id", [step]);
-                                     
+
                                      if(result[0].getBoolean("success")){
                                          step.Id = result[0].id;
                                          rock.stepId = step.Id;
@@ -270,15 +270,15 @@
                                      }else{
                                          console.log("upsert failed! ",result);
                                      }
-                                 
+
                                  };
-                                     
+
                                  rock.remoteSaveMeta = function(items, type){
                                       dw.u.upsertAttach(rock.stepId,type,  JSON.stringify(items));
                                       rock.goto_stepsList();
-                                     
+
                                  };
-                              </script>  
+                              </script>
                           </apex:pageBlockSection>
                       </td>
                       <td width="50%" >
@@ -288,8 +288,8 @@
                       </td>
                   </tr>
               </table>
-              
-             
+
+
               <apex:outputPanel id="opDummy"/>
 
               <apex:pageBlockSection id="pbs_metadata" collapsible="false" columns="1" title=" " rendered="{!step_Step_edit && ( (step.copado__Type__c == 'MetaData') || (step.copado__Type__c == 'Delete MetaData') || (step.copado__Type__c == 'Full Profiles')|| (step.copado__Type__c == 'Full Permission Sets')||(step.copado__Type__c == 'Translations'))}">
@@ -300,9 +300,9 @@
                     'title': 'Wizard - Metadata'
                   });
                   </script>
-      
+
               </apex:pageBlockSection>
-              
+
               <apex:pageBlockSection id="pbs_data" collapsible="false" columns="1" title=" " rendered="{!step_Step_edit && ( (step.copado__Type__c == 'Bulk Data') || (step.copado__Type__c == 'Data'))}">
                   <c:queryBuilder prequery="{!step.copado__dataJson__c}" orgId="{!deployment.copado__From_Org__c}" stepType="{!step.copado__Type__c}" />
                   <script>
@@ -311,10 +311,10 @@
                     'title': 'Wizard - QueryBuilder'
                   });
                   </script>
-      
-              
+
+
               </apex:pageBlockSection>
-              
+
               <apex:pageBlockSection id="pbs_user" collapsible="false" columns="1" title=" " rendered="{!step_Step_edit && (step.copado__Type__c == 'Users')}">
                    <c:usersGrid orgId="{!deployment.copado__From_Org__c}" />
                    <script>
@@ -325,8 +325,8 @@
                   </script>
               </apex:pageBlockSection>
           </apex:pageBlock>
-          
-          <apex:pageBlock id="pb_selectDestinationOrgs" rendered="{!step_selectDestinationOrgs}" mode="edit" helpUrl="https://docs.copa.do/" helpTitle="{!$Label.copado__help_for_this_page}">
+
+          <apex:pageBlock id="pb_selectDestinationOrgs" rendered="{!step_selectDestinationOrgs}" mode="edit" helpUrl="https://docs.copado.com/" helpTitle="{!$Label.copado__help_for_this_page}">
               <apex:pageblockButtons >
                   <apex:commandButton value="{!$Label.copado__back}" action="{!goto_addStep}" rendered="{!NOT(step_DestOrg_edit)}" />
                   <apex:commandButton value="{!$Label.copado__close}" styleClass="btn" action="{!cancel}" />
@@ -341,9 +341,9 @@
                     'title': 'Wizard - Dest Org'
                   });
                   </script>
-              
+
               <apex:pageMessage rendered="{!AND(NOT(hasDestOrgs), NOT(step_DestOrg_edit))}" severity="INFO" strength="2" summary="{!$Label.copado__no_destination_orgs_in_deployment}" />
-              
+
               <apex:pageBlockTable value="{!destinationOrgs}" var="d" rendered="{!AND(hasDestOrgs, NOT(step_DestOrg_edit))}">
                   <apex:column styleClass="col1commands">
                       <apex:facet name="header">
@@ -361,12 +361,12 @@
                   <apex:inputField value="{!destinationOrg.copado__To_Org__c}" />
               </apex:pageBlockSection>
           </apex:pageBlock>
-          
+
           <!-- Show the component in the final setup schedule screen with the pb_setupSchedule -->
           <c:credits id="cmp_credits" rendered="{!step_setupSchedule}" />
-          
-          <apex:pageBlock id="pb_setupSchedule" rendered="{!step_setupSchedule}" mode="edit" helpUrl="https://docs.copa.do/" helpTitle="{!$Label.copado__help_for_this_page}">
-              
+
+          <apex:pageBlock id="pb_setupSchedule" rendered="{!step_setupSchedule}" mode="edit" helpUrl="https://docs.copado.com/" helpTitle="{!$Label.copado__help_for_this_page}">
+
               <script>
                   ga('send', 'pageview', {
                     'page': '/wizardStep4',
@@ -462,7 +462,7 @@
                   </apex:panelGrid>
               </apex:pageBlockSection>
               <style>
-                  #{$Component.tb_est} tfoot .totalRow { text-align: right; } 
+                  #{$Component.tb_est} tfoot .totalRow { text-align: right; }
               </style>
           </apex:pageBlock>
       </apex:form>
